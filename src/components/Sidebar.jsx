@@ -2,7 +2,7 @@
 
 const Sidebar = () => {
   return (
-    <div>Sidebar</div>
+    <div className="dark:text-yellow-200">Sidebar bb</div>
   )
 }
 
