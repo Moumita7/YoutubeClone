@@ -21,7 +21,11 @@
 import { useEffect, useState } from 'react';
 import './App.css'; // Import the Tailwind CSS styles
 import Head from './components/Head';
-import Body from './components/Body';
+// import Body from './components/Body';
+import { Provider } from 'react-redux';
+import store from './redux/store';
+import Sidebar from "../src/components/Sidebar"
+import AllRoutes from './utils/AllRoutes';
 
 
 
@@ -38,9 +42,18 @@ function App() {
 
   return (
     <div className="bg-white dark:bg-gray-900 min-h-screen">
+    <Provider store={store}>
+
   
       <Head darkMode={darkMode} setDarkMode={setDarkMode}/>
-      <Body/>
+      {/* <Body/> */}
+      <div className='flex'>
+
+    <Sidebar/>
+      
+      <AllRoutes/>
+      </div>
+    </Provider>
     
     </div>
   );
