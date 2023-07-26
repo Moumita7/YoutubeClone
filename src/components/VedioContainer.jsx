@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import { YOUTUBE_VEDIO_API } from "../utils/constants"
-import VedioCard from "./VedioCard"
+// import  { VedioCard,AddVedioCard } from "./VedioCard"
+import VedioCard, { AddVedioCard } from "./VedioCard"
+
 import { Link } from "react-router-dom"
 
 
@@ -19,8 +21,12 @@ getVedios()
   }
   return (
     <div className="flex flex-wrap  ">
+    {/* <AddVedioCard/> */}
+    {vedios[23] && <AddVedioCard info={vedios[23]}/>}
     {vedios.map((vedio)=> (
     <Link key={vedio.id}  to={`/watch?v=${vedio.id}`}> <VedioCard  info={vedio}/></Link>))}
+ 
+
    
     </div>
   )
