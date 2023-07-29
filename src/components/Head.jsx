@@ -3,10 +3,10 @@ import { BsSun, BsMoon } from "react-icons/bs";
 import { AiOutlineSearch} from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../redux/appSlice";
-import { Link, json } from "react-router-dom";
+import { Link,  } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { YOUTUBE_SEARCH_API } from "../utils/constants";
-import store from "../redux/store";
+// import store from "../redux/store";
 import { cacheResults } from "../redux/searchSlice";
 
 const Head = ({ darkMode, setDarkMode }) => {
