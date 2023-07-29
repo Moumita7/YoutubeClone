@@ -1,18 +1,24 @@
 import { GiHamburgerMenu } from "react-icons/gi";
 import { BsSun, BsMoon } from "react-icons/bs";
 import { AiOutlineSearch} from "react-icons/ai";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../redux/appSlice";
-import { Link } from "react-router-dom";
+import { Link, json } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { YOUTUBE_SEARCH_API } from "../utils/constants";
+import store from "../redux/store";
+import { cacheResults } from "../redux/searchSlice";
 
 const Head = ({ darkMode, setDarkMode }) => {
 const [searchQuery,setSearchQuery]=useState("")
 const [suggestion,setSuggestion]=useState([])
 const [showSuggestion,setShowSuggestion]=useState(false)
 
+const searchCache=useSelector((store)=>store.search)
+console.log("scc",searchCache)
+
   let dispatch=useDispatch()
+
   let toggleMenuHandeler=()=>{
     dispatch(toggleMenu())
   }
@@ -21,7 +27,17 @@ useEffect(()=>{
   
 // getSearchSuggestion()
 
-let timmer=setTimeout(()=>getSearchSuggestion(),200)
+// let timmer=setTimeout(()=>getSearchSuggestion(),200)
+let timmer=setTimeout(()=>
+{
+  if(searchCache[searchQuery]){
+    setSuggestion(searchCache[searchQuery])
+  }else{
+
+    getSearchSuggestion()
+  }
+},200)
+
 
 return ()=>clearTimeout(timmer)
 },[searchQuery])
@@ -32,6 +48,13 @@ const getSearchSuggestion=async ()=>{
   const json=await data.json()
   // console.log(json[1])
   setSuggestion(json[1])
+
+  //update Cache
+  dispatch(cacheResults({
+    [searchQuery]:json[1]
+// "iphone":[1,2,3]
+
+  }))
 }
 
   return (
